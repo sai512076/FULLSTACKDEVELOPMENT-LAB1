@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Accurate Age Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Accurate Age Calculator</h1>
+    <p>Enter your date of birth to calculate your exact age:</p>
+    <input type="date" id="birthDate">
+    <button onclick="calculateAge()">Calculate Age</button>
+    <h2 id="result"></h2>
+
+    <script>
+        function calculateAge() {
+            const birthDate = new Date(document.getElementById('birthDate').value);
+            const currentDate = new Date();
+
+            if (birthDate && birthDate <= currentDate) {
+                let years = currentDate.getFullYear() - birthDate.getFullYear();
+                let months = currentDate.getMonth() - birthDate.getMonth();
+                let days = currentDate.getDate() - birthDate.getDate();
+
+                if (days < 0) {
+                    months--;
+                    days += new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+                }
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+
+                document.getElementById('result').innerText =
+                    `Your age is ${years} years, ${months} months, and ${days} days.`;
+            } else {
+                document.getElementById('result').innerText = "Please enter a valid date of birth.";
+            }
+        }
+    </script>
+</body>
+</html>
